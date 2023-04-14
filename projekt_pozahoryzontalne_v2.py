@@ -12,11 +12,9 @@ class model:
         self.loss = 0
         
         N = (np.sqrt(self.Er)-1)*10**6
-        #print("N: %f" %N)
-        K = (1-0.04665*np.exp(0.005577*N))**(-1)
-        #print("K: %f" %K)
-        self.d_hor = 3.571*np.sqrt(K)*(np.sqrt(self.tx_height)*np.sqrt(self.rx_height))
-        #print("d_hor: %f" %self.d_hor)
+        K = abs((1-0.04665*np.exp(np.float128(0.005577*N)))**(-1))
+        self.d_hor = np.float128(3.571*np.sqrt(K)*(np.sqrt(self.tx_height)*np.sqrt(self.rx_height)))
+        
     def compute(self, disnatnce = None):
         if disnatnce is None:
             disnatnce = self.distance
